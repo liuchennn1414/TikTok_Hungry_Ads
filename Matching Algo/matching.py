@@ -7,50 +7,67 @@ Created on Tue Sep  5 23:35:33 2023
 """
 
 class Moderator:
-    def __init__(self, score, vector, productivity):
+    def __init__(self, score, countries, productivity):
         self.score = score
-        self.vector = vector
+        self.countries = countries
         self.productivity = productivity
-        self.time_left = 0 # if 0 then not matched, if > 0 then currently working
-        self.working_contents = []
+        self.task_length= 0 
 
 
 class Content:
-    def __init__(self, score, vector, complexity):
+    def __init__(self, score, country, complexity):
         self.score = score
-        self.vector = vector
+        self.country = country
         self.complexity = complexity
-        self.matched = False
         
         
-moderators = #initiate list of moderators
-contents = #initiate priority queue of contents
-contents_to_match = #list of size M of current first M contents to moderate
+good_moderators = #list of moderators with score in high range 
+ok_moderators = #list of moderators with score in middle range
+bad_moderators = #list of moderators with score in low range
+
+high_contents = #list of contents with score in high range
+middle_contents = #list of contents with score in middles range
+low_contents = # list of contents with score in low range
+
+def country_compatibility(c1, c2):
+    '''
+    Parameters
+    ----------
+    c1 : Short form of county 1.
+    c2 : Short form of country 2.
+
+    Returns score between 0 and 1
+    '''
+
+def time_for_task(moderator, content):
+    '''
+
+    Parameters
+    ----------
+    moderator : Moderator of interest
+    content : Content of interest
+    
+    A function involving content.complexity and moderator.productivity
+
+    Returns
+    Estimated time in (units?)
+
+    '''
+    
+    # for example: complexity/productivity
 
 
-def weight(Moderator, Content):
+def loss(moderator, content, w1, w2, w3):
+    l1 = abs(moderator.score - content.score)
+    l2 = max[country_compatibility(content.country, c2) for c2 in moderator.countries]
+    l3 = country.score * moderator.task_length
+    return w1*l1 + w2*l2 + w3*l3
     
-    '''
-    calculate weight of edges between each available moderator and content, based on score, compatibility, time efficiency
-    '''
+
+
+def batch_graph(moderator_batch, content_batch):
+    graph = [[loss(mj, ci, w1, w2, w3) for ci in content_batch] for mj in moderator_batch]
     
-def select_moderators(moderators, k, epsilon):
-    '''
-    select k moderators with least time_left, and time_left below treshold, and no working contents
-    '''
+    return graph
     
-def matching(moderator_list, content_list):
-    '''
-    genetic algorithm to maximise weight/minimize loss for current batch of matching
-    '''
     
-'''
-Algorithm steps:
-Assume discrete time step t = 1, 2, ... ...
-    
-    1) Initiate moderator list, content queue, and content list of first M content, record weight/loss
-    2) Initiate matching between moderator list and content list
-    3) At each time step, select k moderators with empty working_content list and next M contents to match (k < M)
-    4) Perform matching with genetic algorithm
-    5) pop the matched contents from the list
-    6) Record the time taken for last moderator to evaluate last content

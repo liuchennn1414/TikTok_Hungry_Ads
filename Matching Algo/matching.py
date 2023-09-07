@@ -60,7 +60,7 @@ def time_for_task(moderator, content):
 def loss(moderator, content, w1, w2, w3):
     l1 = abs(moderator.score - content.score)
     l2 = max[country_compatibility(content.country, c2) for c2 in moderator.countries]
-    l3 = country.score * moderator.task_length
+    l3 = time_for_task(moderator, content) + moderator.task_length
     return w1*l1 + w2*l2 + w3*l3
     
 

@@ -73,10 +73,24 @@ w1 = 0.3
 w2 = -0.3
 w3 = 0.4
 
-num_good = len(good_moderators)
 
-sample_contents = high_contents[:]
-while sample_contents:
-    batch_size = min(num_good, len(sample_contents))
-    content_batch, sample_contents = sample_contents[:batch_size], sample_contents[batch_size:]
-    matching.matching(good_moderators, content_batch, w1, w2, w3, similarity_dictionary)
+moderators = good_moderators[:] #CHANGE ACCORDINGLY
+contents = high_contents[:] #CHANGE ACCORDINGLY
+num_mod = len(moderators)
+
+while contents:
+    batch_size = min(num_mod, len(contents))
+    content_batch, contents = contents[:batch_size], contents[batch_size:]
+    matching.matching(moderators, content_batch, w1, w2, w3, similarity_dictionary)
+    
+good_moderator_results = moderators[:]
+
+''' Getting results data
+
+count_comp = [[max([matching.country_compatibility(mc, c, similarity_dictionary) for mc in m.countries]) for c in m.task_countries] for m in good_moderator_results]
+avg_country_score = [np.mean(l) for l in count_comp]
+
+avg_score_diff = [np.mean(m.score_diff) for m in good_moderator_results]
+
+max(m.task_length for m in good_moderator_results)
+'''

@@ -69,13 +69,14 @@ similarity_dictionary = {(similarity_df.loc[i, "code1"], similarity_df.loc[i, "c
 
 #Using good moderators and good contents as example:
 
-w1 = #wwight 1
-w2 = #weight 2
-w3 = #weight 3
+w1 = 0.3
+w2 = -0.3
+w3 = 0.4
 
 num_good = len(good_moderators)
-    
-while high_contents:
-    batch_size = min(num_good, len(high_contents))
-    content_batch, high_contents = high_contents[:batch_size], high_contents[batch_size:]
-    matching(good_moderators, content_batch, w1, w2, w3)
+
+sample_contents = high_contents[:]
+while sample_contents:
+    batch_size = min(num_good, len(sample_contents))
+    content_batch, sample_contents = sample_contents[:batch_size], sample_contents[batch_size:]
+    matching.matching(good_moderators, content_batch, w1, w2, w3, similarity_dictionary)

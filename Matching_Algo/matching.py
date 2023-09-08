@@ -44,7 +44,7 @@ def country_compatibility(c1, c2, sim_d):
 
     Returns score between 0 and 1
     '''
-    if c1 == '' or c2 == '':
+    if c1 == '' or c2 == '' or c1 == 'OTHER' or c2 == 'OTHER':
         return 0
     elif (c1, c2) in sim_d:
         return sim_d[(c1, c2)]
@@ -70,7 +70,7 @@ def time_for_task(moderator, content):
 
 
 
-def create_graph(moderator_batch, content_batch, w1, w2, w3):
+def create_graph(moderator_batch, content_batch, w1, w2, w3, sim_d):
     
     # --- Sub-functions within create_graph ---
 
@@ -87,7 +87,7 @@ def create_graph(moderator_batch, content_batch, w1, w2, w3):
 
     def normalized_loss(moderator, content, l1_mean, l1_std, l3_mean, l3_std):
         l1 = abs(moderator.score - content.score)
-        l2 = max([country_compatibility(content.country, c2) for c2 in moderator.countries])
+        l2 = max([country_compatibility(content.country, c2, sim_d) for c2 in moderator.countries])
         l3 = time_for_task(moderator, content) + moderator.task_length
 
         # Normalize l1 and l3 to N(0,1)
@@ -99,7 +99,7 @@ def create_graph(moderator_batch, content_batch, w1, w2, w3):
     # --- Main functionality of create_graph ---
     
     l1_mean, l1_std, l3_mean, l3_std = compute_mean_std_l1_l3()
-    graph = [[normalized_loss(mj, ci, l1_mean, l1_std, l3_mean, l3_std) for mj in moderator_batch] for mj in content_batch]
+    graph = [[normalized_loss(mj, ci, l1_mean, l1_std, l3_mean, l3_std) for mj in moderator_batch] for ci in content_batch]
     return graph
 
 
@@ -113,7 +113,7 @@ def add_dummy_content(content_batch, num_required):
 
 
 
-def matching(moderator_batch, content_batch, w1, w2, w3):
+def matching(moderator_batch, content_batch, w1, w2, w3, sim_d):
     
     num_moderators = len(moderator_batch)
     num_contents = len(content_batch)
@@ -122,7 +122,7 @@ def matching(moderator_batch, content_batch, w1, w2, w3):
     if num_contents < num_moderators:
         content_batch = add_dummy_content(content_batch, num_moderators - num_contents)
     
-    graph = create_graph(moderator_batch, content_batch, w1, w2, w3)
+    graph = create_graph(moderator_batch, content_batch, w1, w2, w3, sim_d)
     
     c_indices, m_indices = linear_sum_assignment(graph)
     

@@ -13,7 +13,7 @@ from scipy.optimize import linear_sum_assignment
 
 
 class Moderator:
-    def __init__(self, score, countries, productivity, id, handling_time):
+    def __init__(self, id, score, countries, handling_time):
         self.score = score
         self.countries = countries
         self.tasks = []
@@ -28,24 +28,13 @@ class Moderator:
 
 
 class Content:
-    def __init__(self, score, country, complexity, id):
+    def __init__(self, id, score, country, complexity):
         self.score = score
         self.country = country
         self.complexity = complexity
         self.id = id
         
-        
-good_moderators = #list of moderators with score in high range 
-ok_moderators = #list of moderators with score in middle range
-bad_moderators = #list of moderators with score in low range
-
-
-
-high_contents = #list of contents with score in high range
-middle_contents = #list of contents with score in middles range
-low_contents = # list of contents with score in low range
-
-similarity_dictionary = #dictionary assigning each country pair (c1, c2) to a similarity score
+    
 
 def country_compatibility(c1, c2):
     '''
@@ -57,9 +46,11 @@ def country_compatibility(c1, c2):
     Returns score between 0 and 1
     '''
     if c1 == '' or c2 == '':
-        return 1
+        return 0
+    elif (c1, c2) in similarity_dictionary:
+        return similarity_dictionary[(c1, c2)]
     else:
-        return similarity_dictionary['({c1}, {c2})'.format(c1, c2)]
+        return similarity_dictionary[(c2, c1)]
 
 def time_for_task(moderator, content):
     '''
@@ -144,17 +135,5 @@ def matching(moderator_batch, content_batch, w1, w2, w3):
 
     
 
-#Using good moderators and good contents as example:
-
-w1 = #wwight 1
-w2 = #weight 2
-w3 = #weight 3
-
-num_good = len(good_moderators)
-    
-while high_contents:
-    batch_size = min(num_good, len(high_contents))
-    content_batch, high_contents = high_contents[:batch_size], high_contents[batch_size:]
-    matching(good_moderators, content_batch, w1, w2, w3)
 
     

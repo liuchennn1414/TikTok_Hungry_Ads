@@ -74,8 +74,18 @@ w2 = -0.3
 w3 = 0.4
 
 
-moderators = good_moderators[:] #CHANGE ACCORDINGLY
-contents = high_contents[:] #CHANGE ACCORDINGLY
+category =   ##fill in either good, ok, bad
+
+if category == 'good':
+    moderators = good_moderators[:] #CHANGE ACCORDINGLY
+    contents = high_contents[:] #CHANGE ACCORDINGLY
+elif category == 'ok':
+    moderators = ok_moderators[:] #CHANGE ACCORDINGLY
+    contents = middle_contents[:] #CHANGE ACCORDINGLY
+else:
+    moderators = bad_moderators[:] #CHANGE ACCORDINGLY
+    contents = low_contents[:] #CHANGE ACCORDINGLY
+
 num_mod = len(moderators)
 
 while contents:
@@ -102,7 +112,8 @@ moderator_ids = [m.id for m in moderators]
 results_df = pd.DataFrame(list(zip(moderator_ids, avg_score_diff, avg_country_score, task_lengths)),
                columns =['ID', 'Average_Score_Difference', 'Average_Country_Score', 'Total_Task_Lengths']) #SAVE THIS DATAFRAME
 
-category =   ##fill in either good, ok, bad
+
+
 with open("matching_{}.json".format(category), "w") as outfile:
     json.dump(assignment_results, outfile)
 

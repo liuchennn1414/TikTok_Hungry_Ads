@@ -74,7 +74,7 @@ w2 = -0.3
 w3 = 0.4
 
 
-category =   ##fill in either good, ok, bad
+category =  "" ##fill in either good, ok, bad
 
 if category == 'good':
     moderators = good_moderators[:] #CHANGE ACCORDINGLY
@@ -96,7 +96,7 @@ while contents:
 
 #''' Getting results data
 
-assignment_results = {m.id:m.tasks_id for m in moderators} #SAVE THIS DICTIONARY
+assignment_results = {str(m.id):str(m.tasks_id) for m in moderators} #SAVE THIS DICTIONARY
 
 count_comp = [[max([matching.country_compatibility(mc, c, similarity_dictionary) for mc in m.countries]) for c in m.task_countries] for m in moderators]
 avg_country_score = [np.mean(l) for l in count_comp] 

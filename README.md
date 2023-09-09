@@ -132,8 +132,8 @@ Our framework essentially transforms video into several images, which are then e
 By understanding the content of the advertisement, we're confident that our advertisement scoring model will yield more accurate results.
 
 ## Part 5: Resources
-1. Stochastic dynamic matching: A mixed graph-theory and linear-algebra approach
-2. A framework for dynamic matching in weighted graphs
+1. Stochastic dynamic matching: A mixed graph-theory and linear-algebra approach: https://arxiv.org/pdf/2112.14457.pdf
+2. A framework for dynamic matching in weighted graphs: https://zlangley.com/a-framework-for-dynamic-matching-in-weighted-graphs.pdf
 
 
 

@@ -17,6 +17,7 @@ To run our code:
 cd Matching_Algo
 python run_model.py
 To generate results for each category, this section of code needs to be modified accordingly:
+![WechatIMG1406](https://github.com/liuchennn1414/TikTok_Hackathon/assets/77218431/9493b2f8-1fe1-4c8d-9296-94f50e7267f4)
 
 The output could be found in 
 /Matching_Algo/Results/MATCHING_RESULTS.json
@@ -30,6 +31,7 @@ They process sample_data.xlsx and output 6 csv files, which are ads and moderato
 In this README file, we will provide an overview of our project, which focuses on optimising the moderation process for social media advertisements. It consists of three key components: scoring models, namely a ads content scoring model and a moderator scoring model, a matching algorithm which assigns the highest-scoring ads to top-performing moderators; and plans for Further Work to continually improve and refine the moderation process.  
 
 Using the scoring model, we were able to split the ads and moderators into 3 categories, with high, medium, and low scores. The ads are then assigned to the moderators of the same category, as shown in Figure 1.
+<img width="593" alt="Screenshot 2023-09-09 at 11 18 43 PM" src="https://github.com/liuchennn1414/TikTok_Hackathon/assets/77218431/ce0698eb-f76f-4c18-83a4-deb6d98dfdf8">
 
 Figure 1. Overview of our algorithm
 
@@ -99,17 +101,20 @@ The min-cost-assignment problem for each batch is handled with the Hungarian alg
 We will evaluate our matching model’s result via 3 perspectives: Score Difference, Market Similarity and Task Handling Time. 
 
 ### 3.1 Score Difference
+<img width="597" alt="Screenshot 2023-09-09 at 11 19 33 PM" src="https://github.com/liuchennn1414/TikTok_Hackathon/assets/77218431/b93aee92-fa2e-42d9-b227-c4c1f0c0b270">
 
 
 
 Based on the optimised distribution of score difference between moderator and ads, the distribution has shifted left as compared with the random mean & distribution. It is a good indicator that our matching model reduces the score difference between moderator and ads, and good content is moderated by good moderators to make sure that those risky and highly profitable materials are handled appropriately. 
 
 ### 3.2 Market Similarity 
+<img width="596" alt="Screenshot 2023-09-09 at 11 19 49 PM" src="https://github.com/liuchennn1414/TikTok_Hackathon/assets/77218431/c74e4678-e7fd-4a64-bd69-997513b0340c">
 
 
 The improved market similarity score has been shifted to the right, and the median of average score has increased from 0.4 to 0.75 (a 90 percent increase). As a result of our model, moderators are able to focus on moderating content which they are familiar with (from a linguistic and cultural perspective), which would improve their efficiency and accuracy, which has resulted in the optimization of both revenue and review time. 
 
 ### 3.3 Task Handling Time 
+<img width="601" alt="Screenshot 2023-09-09 at 11 19 56 PM" src="https://github.com/liuchennn1414/TikTok_Hackathon/assets/77218431/55c5d60a-c7ca-477b-9621-0223fa9f4366">
 
 Our model was able to reduce the median task handling time from 90 to 25 (a 72% reduction). A shorter handling time per task indicates that moderators will be able to review each advertisement more quickly, which will ultimately improve their efficiency. However, we noticed a pattern with higher handling time, and we found out that this is contributed by the good moderator (i.e. the high score category).
 
@@ -117,6 +122,7 @@ The root cause is likely that high-score tasks are generally more complex, thus 
 
 ## Part 4: Future Work
 
+<img width="624" alt="Screenshot 2023-09-09 at 11 20 03 PM" src="https://github.com/liuchennn1414/TikTok_Hackathon/assets/77218431/4cc333a3-fab4-4316-9d98-c05a28cfb712">
 
 
 While we don't have access to the actual content of the advertisement, we believe it's crucial to review it to determine if the ad poses any risk, beyond just relying on historical data. As such, we've developed a framework that can analyse video content and enhance our ability to assess the risk level of an advertisement.

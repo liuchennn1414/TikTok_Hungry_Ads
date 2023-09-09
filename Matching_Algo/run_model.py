@@ -67,7 +67,7 @@ similarity_dictionary = {(similarity_df.loc[i, "code1"], similarity_df.loc[i, "c
 
 
 
-#Using good moderators and good contents as example:
+################################## RUNNING THE MODEL ###############################################
 
 w1 = 0.3
 w2 = -0.3
@@ -83,14 +83,22 @@ while contents:
     content_batch, contents = contents[:batch_size], contents[batch_size:]
     matching.matching(moderators, content_batch, w1, w2, w3, similarity_dictionary)
     
-good_moderator_results = moderators[:]
 
-''' Getting results data
+#''' Getting results data
 
-count_comp = [[max([matching.country_compatibility(mc, c, similarity_dictionary) for mc in m.countries]) for c in m.task_countries] for m in good_moderator_results]
-avg_country_score = [np.mean(l) for l in count_comp]
+assignment_results = {m.id:m.tasks_id for m in moderators} #SAVE THIS DICTIONARY
 
-avg_score_diff = [np.mean(m.score_diff) for m in good_moderator_results]
+count_comp = [[max([matching.country_compatibility(mc, c, similarity_dictionary) for mc in m.countries]) for c in m.task_countries] for m in moderators]
+avg_country_score = [np.mean(l) for l in count_comp] 
 
-max(m.task_length for m in good_moderator_results)
-'''
+avg_score_diff = [np.mean(m.score_diff) for m in moderators] 
+
+task_lengths = [m.task_length for m in moderators] 
+
+max([m.task_length for m in moderators])
+
+moderator_ids = [m.id for m in moderators]
+
+results_df = pd.DataFrame(list(zip(moderator_ids, avg_score_diff, avg_country_score, task_lengths)),
+               columns =['ID', 'Average_Score_Difference', 'Average_Country_Score', 'Total_Task_Lengths']) #SAVE THIS DATAFRAME
+#'''

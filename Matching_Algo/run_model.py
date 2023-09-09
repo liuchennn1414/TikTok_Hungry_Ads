@@ -101,4 +101,11 @@ moderator_ids = [m.id for m in moderators]
 
 results_df = pd.DataFrame(list(zip(moderator_ids, avg_score_diff, avg_country_score, task_lengths)),
                columns =['ID', 'Average_Score_Difference', 'Average_Country_Score', 'Total_Task_Lengths']) #SAVE THIS DATAFRAME
-#'''
+
+category =   ##fill in either good, ok, bad
+with open("matching_{}.json".format(category), "w") as outfile:
+    json.dump(assignment_results, outfile)
+
+outfile.close()
+
+results_df.to_csv("performance_{}.csv".format(category))
